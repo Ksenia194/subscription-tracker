@@ -1,9 +1,13 @@
 TODO.md
 target/
 .idea/
+out/
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+.DS_Store
+Thumbs.db
+*.log
 
 ### STS ###
 .apt_generated
