@@ -7,6 +7,7 @@ out/
 !**/src/test/**/target/
 .DS_Store
 Thumbs.db
+*.log
 
 ### STS ###
 .apt_generated
@@ -22,7 +23,6 @@ Thumbs.db
 *.iws
 *.iml
 *.ipr
-*.log
 
 ### NetBeans ###
 /nbproject/private/
