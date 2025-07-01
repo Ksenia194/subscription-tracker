@@ -4,6 +4,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 
@@ -14,12 +17,16 @@ public class Subscription {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Name must not be blank")
     private String serviceName;
 
+    @Min(value = 1, message = "Price must be at least 1")
     private Double price;
 
+    @NotNull(message = "Start date is required")
     private LocalDate startDate;
 
+    @NotNull(message = "End date is required")
     private LocalDate endDate;
 
     private boolean autoRenew;

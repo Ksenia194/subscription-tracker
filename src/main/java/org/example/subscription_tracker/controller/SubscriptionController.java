@@ -1,12 +1,12 @@
 package org.example.subscription_tracker.controller;
 
+import jakarta.validation.Valid;
 import org.example.subscription_tracker.entity.Subscription;
 import org.example.subscription_tracker.service.SubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class SubscriptionController {
@@ -26,12 +26,12 @@ public class SubscriptionController {
     }
 
     @PostMapping("/subscriptions")
-    public Subscription saveSubscription(@RequestBody Subscription subscription) {
+    public Subscription saveSubscription(@RequestBody @Valid Subscription subscription) {
         return subscriptionService.save(subscription);
     }
 
     @PutMapping("/subscriptions/{id}")
-    public Subscription updateSubscription(@RequestBody Subscription subscription, @PathVariable Long id) {
+    public Subscription updateSubscription(@RequestBody @Valid Subscription subscription, @PathVariable Long id) {
         return subscriptionService.update(subscription, id);
     }
 
