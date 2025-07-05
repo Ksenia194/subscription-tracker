@@ -21,36 +21,26 @@ public class SubscriptionController {
 
     @GetMapping("/subscriptions")
     public List<SubscriptionDTO> getAllSubscriptions() {
-        return subscriptionService.findAll().stream()
-                .map(subscriptionMapper::toDto)
-                .toList();
+        return subscriptionService.findAll();
     }
 
     @GetMapping("/subscriptions/{id}")
     public SubscriptionDTO getByIdSubscriptions(@PathVariable Long id) {
-        Subscription subscription = subscriptionService.findById(id)
-                .orElseThrow(() -> new RuntimeException("Subscription with ID " + id + " not found"));
-        return subscriptionMapper.toDto(subscription);
+        return subscriptionService.findById(id);
     }
 
     @PostMapping("/subscriptions")
     public SubscriptionDTO saveSubscription(@RequestBody @Valid SubscriptionDTO subscriptionDTO) {
-        Subscription subscription = subscriptionMapper.toEntity(subscriptionDTO);
-        Subscription saved = subscriptionService.save(subscription);
-        return subscriptionMapper.toDto(saved);
+        return subscriptionService.save(subscriptionDTO);
     }
 
     @PutMapping("/subscriptions/{id}")
     public SubscriptionDTO updateSubscription(@RequestBody @Valid SubscriptionDTO subscriptionDTO, @PathVariable Long id) {
-        Subscription subscription = subscriptionMapper.toEntity(subscriptionDTO);
-        Subscription updated = subscriptionService.update(subscription, id);
-        return subscriptionMapper.toDto(updated);
+        return subscriptionService.update(subscriptionDTO, id);
     }
 
     @DeleteMapping("/subscriptions/{id}")
     public void deleteSubscription(@PathVariable Long id) {
-        Subscription subscription = subscriptionService.findById(id)
-                .orElseThrow(() -> new RuntimeException("Subscription with ID " + id + " not found"));
-        subscriptionService.delete(subscription);
+        subscriptionService.delete(id);
     }
 }
