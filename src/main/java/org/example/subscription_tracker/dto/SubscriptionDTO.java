@@ -8,6 +8,9 @@ import org.example.subscription_tracker.entity.Subscription;
 import java.time.LocalDate;
 
 public class SubscriptionDTO {
+
+    private Long id;
+
     @NotBlank(message = "Name must not be blank")
     private String serviceName;
 
@@ -23,7 +26,8 @@ public class SubscriptionDTO {
 
     private boolean autoRenew;
 
-    public SubscriptionDTO(String serviceName, Double price, LocalDate startDate, LocalDate endDate, boolean autoRenew) {
+    public SubscriptionDTO(Long id, String serviceName, Double price, LocalDate startDate, LocalDate endDate, boolean autoRenew) {
+        this.id = id;
         this.serviceName = serviceName;
         this.price = price;
         this.startDate = startDate;
@@ -31,24 +35,12 @@ public class SubscriptionDTO {
         this.autoRenew = autoRenew;
     }
 
-    public Subscription toEntity() {
-        Subscription subscription = new Subscription();
-        subscription.setServiceName(this.serviceName);
-        subscription.setPrice(this.price);
-        subscription.setStartDate(this.startDate);
-        subscription.setEndDate(this.endDate);
-        subscription.setAutoRenew(this.autoRenew);
-        return subscription;
+    public Long getId() {
+        return id;
     }
 
-    public static Subscription fromEntity(Subscription subscription) {
-        return new Subscription(
-                subscription.getServiceName(),
-                subscription.getPrice(),
-                subscription.getStartDate(),
-                subscription.getEndDate(),
-                subscription.isAutoRenew()
-        );
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getServiceName() {

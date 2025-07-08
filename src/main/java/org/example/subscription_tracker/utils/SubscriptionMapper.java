@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 public class SubscriptionMapper {
     public Subscription toEntity(SubscriptionDTO dto) {
         Subscription subscription = new Subscription();
+        subscription.setId(dto.getId());
         subscription.setServiceName(dto.getServiceName());
         subscription.setPrice(dto.getPrice());
         subscription.setStartDate(dto.getStartDate());
@@ -18,6 +19,7 @@ public class SubscriptionMapper {
 
     public SubscriptionDTO toDto(Subscription entity) {
         SubscriptionDTO subscriptionDTO = new SubscriptionDTO(
+                entity.getId(),
                 entity.getServiceName(),
                 entity.getPrice(),
                 entity.getStartDate(),
