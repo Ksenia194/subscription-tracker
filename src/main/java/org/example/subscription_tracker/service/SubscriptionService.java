@@ -7,6 +7,8 @@ import org.example.subscription_tracker.utils.SubscriptionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,5 +63,17 @@ public class SubscriptionService {
         Subscription deleted = subscriptionRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Subscription with ID " + id + " not found"));
         subscriptionRepository.delete(deleted);
+    }
+
+    public List<SubscriptionDTO> findFiltered(String serviceName, Boolean active) {
+        List<SubscriptionDTO> mappedList = subscriptionRepository.findAll()
+                .stream()
+                .map(subscriptionMapper::toDto)
+                .filter(s -> serviceName == null || serviceName.isBlank() || s.getServiceName().equalsIgnoreCase(serviceName))
+                .filter(s -> active == null ||
+                        (active && s.getEndDate().isAfter(LocalDate.now())) ||
+                        (!active && s.getEndDate().isBefore(LocalDate.now())))
+                .toList();
+        return mappedList;
     }
 }

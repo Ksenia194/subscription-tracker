@@ -29,6 +29,12 @@ public class SubscriptionController {
         return subscriptionService.findById(id);
     }
 
+    @GetMapping("/subscriptions/filter")
+    public List<SubscriptionDTO> getFilteredSubscriptions(@RequestParam(required = false) String serviceName,
+                                                          @RequestParam(required = false) Boolean active) {
+        return subscriptionService.findFiltered(serviceName, active);
+    }
+
     @PostMapping("/subscriptions")
     public SubscriptionDTO saveSubscription(@RequestBody @Valid SubscriptionDTO subscriptionDTO) {
         return subscriptionService.save(subscriptionDTO);
