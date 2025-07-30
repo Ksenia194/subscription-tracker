@@ -2,10 +2,10 @@ package org.example.subscription_tracker.controller;
 
 import jakarta.validation.Valid;
 import org.example.subscription_tracker.dto.SubscriptionDTO;
-import org.example.subscription_tracker.entity.Subscription;
 import org.example.subscription_tracker.service.SubscriptionService;
 import org.example.subscription_tracker.utils.SubscriptionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,6 +36,7 @@ public class SubscriptionController {
     }
 
     @PostMapping("/subscriptions")
+    @ResponseStatus(HttpStatus.CREATED)
     public SubscriptionDTO saveSubscription(@RequestBody @Valid SubscriptionDTO subscriptionDTO) {
         return subscriptionService.save(subscriptionDTO);
     }
@@ -46,6 +47,7 @@ public class SubscriptionController {
     }
 
     @DeleteMapping("/subscriptions/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteSubscription(@PathVariable Long id) {
         subscriptionService.delete(id);
     }

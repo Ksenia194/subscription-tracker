@@ -20,9 +20,9 @@ public class SubscriptionService {
     @Autowired
     private SubscriptionMapper subscriptionMapper;
 
-    @Autowired
-    public SubscriptionService(SubscriptionRepository subscriptionRepository) {
+    public SubscriptionService(SubscriptionRepository subscriptionRepository, SubscriptionMapper subscriptionMapper) {
         this.subscriptionRepository = subscriptionRepository;
+        this.subscriptionMapper = subscriptionMapper;
     }
 
     public List<SubscriptionDTO> findAll() {
