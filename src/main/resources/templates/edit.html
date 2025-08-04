@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Subscription</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+
+<body>
+<div class="container">
+    <div class="header">
+        <h1>✏️ Edit Subscription</h1>
+        <a href="/" class="add-btn">⬅ Back</a>
+    </div>
+
+    <div class="form-wrapper">
+        <form th:action="@{/edit/{id}(id=${subscription.id})}" th:object="${subscription}" method="post">
+
+            <label for="serviceName">Service:</label>
+            <input type="text" th:field="*{serviceName}" id="serviceName" required />
+
+            <label for="price">Price:</label>
+            <input type="number" th:field="*{price}" id="price" step="0.01" required />
+
+            <label for="startDate">Start Date:</label>
+            <input type="date" th:field="*{startDate}" id="startDate" required />
+
+            <label for="endDate">End Date:</label>
+            <input type="date" th:field="*{endDate}" id="endDate" required />
+
+            <label for="autoRenew">Auto-renew:</label>
+            <input type="checkbox" th:field="*{autoRenew}" id="autoRenew" />
+
+            <button type="submit" class="add-submit-btn">💾 Save</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Edit subscription</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h2>Edit subscription</h2>-->
+
+<!--<form th:action="@{/edit/{id}(id=${subscription.id})}"-->
+<!--      th:object="${subscription}" method="post">-->
+
+<!--    <label for="serviceName">Service:</label>-->
+<!--    <input type="text" th:field="*{serviceName}" id="serviceName" required /><br/>-->
+
+<!--    <label for="price">Price:</label>-->
+<!--    <input type="number" th:field="*{price}" id="price" required /><br/>-->
+
+<!--    <label for="startDate">StartDate:</label>-->
+<!--    <input type="date" th:field="*{startDate}" id="startDate" required /><br/>-->
+
+<!--    <label for="endDate">EndDate:</label>-->
+<!--    <input type="date" th:field="*{endDate}" id="endDate" required /><br/>-->
+
+<!--    <label for="autoRenew">Auto-continue:</label>-->
+<!--    <input type="checkbox" th:field="*{autoRenew}" id="autoRenew" /><br/><br/>-->
+
+<!--    <button type="submit">💾 Save</button>-->
+<!--</form>-->
+
+<!--<a href="/">⬅ Back</a>-->
+<!--</body>-->
+<!--</html>-->

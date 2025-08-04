@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Subscription Tracker</title>
+  <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <header class="header">
+    <h1>📦 Subscription Tracker</h1>
+    <a href="#add-form" class="add-btn">+ Add Subscription</a>
+  </header>
+
+  <!-- Subscription List -->
+  <div class="card-list">
+    <div class="card" th:each="sub : ${subscriptions}">
+      <div class="card-header">
+        <span class="subscription-name" th:text="${sub.serviceName}">Service Name</span>
+        <span class="subscription-price" th:text="${sub.price} + ' $/month'">0.00 $</span>
+      </div>
+      <div class="card-meta">
+        <span>Next payment: <strong th:text="${#temporals.format(sub.endDate, 'MMM dd, yyyy')}">May 20, 2024</strong></span>
+        <span class="category">–</span>
+      </div>
+      <div class="card-progress">
+        <progress th:value="${T(java.time.temporal.ChronoUnit).DAYS.between(sub.startDate, T(java.time.LocalDate).now())}"
+                  th:max="${T(java.time.temporal.ChronoUnit).DAYS.between(sub.startDate, sub.endDate)}">
+        </progress>
+        <span class="days-left"
+              th:text="${T(java.time.temporal.ChronoUnit).DAYS.between(T(java.time.LocalDate).now(), sub.endDate)} + ' days left'">
+        15 days left
+      </span>
+      </div>
+      <div class="card-actions">
+        <a th:href="@{'/edit/' + ${sub.id}}" class="edit-link">✏️ Edit</a>
+        <form th:action="@{'/web/delete/' + ${sub.id}}" method="post" onsubmit="return confirm('Are you sure?');">
+          <button type="submit" class="delete-button">🗑️</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Subscription Form -->
+  <div class="form-wrapper" id="add-form">
+    <h2>➕ Add new subscription</h2>
+    <form action="/web/subscriptions" method="post">
+
+      <label for="serviceName">Service:</label><br>
+      <input type="text" id="serviceName" name="serviceName" required><br><br>
+
+      <label for="price">Price:</label><br>
+      <input type="number" id="price" name="price" step="0.01" required><br><br>
+
+      <label for="startDate">StartDate:</label><br>
+      <input type="date" id="startDate" name="startDate" required><br><br>
+
+      <label for="endDate">EndDate:</label><br>
+      <input type="date" id="endDate" name="endDate" required><br><br>
+
+      <label for="autoRenew">
+        <input type="checkbox" id="autoRenew" name="autoRenew">
+        Auto-continue
+      </label><br><br>
+
+      <button type="submit" class="add-submit-btn">Add</button>
+    </form>
+  </div>
+
+</div>
+</body>
+</html>
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <title>Subscription Tracker</title>-->
+<!--  <link rel="stylesheet" th:href="@{/styles.css}">-->
+<!--</head>-->
+
+<!--<body>-->
+
+<!--<h1>📦 Subscription list</h1>-->
+<!--<ul>-->
+<!--  <li th:each="sub : ${subscriptions}"  class="subscription-item">-->
+<!--    <div class="subscription-content">-->
+<!--      <strong th:text="${sub.serviceName}">Service</strong> - -->
+<!--      <span th:text="${sub.price}">0.00</span>-->
+<!--    </div>-->
+<!--    <div class="buttons-container">-->
+<!--      <a th:href="@{'/edit/' + ${sub.id}}" class="edit-link">✏️ Edit</a>-->
+<!--      <form th:action="@{'/web/delete/' + ${sub.id}}"-->
+<!--          method="post"-->
+<!--          class="delete-form"-->
+<!--          onsubmit="return confirm('Are you sure you want to delete this subscription?');">-->
+<!--        <button type="submit" class="delete-button">🗑️</button>-->
+<!--      </form>-->
+<!--    </div>-->
+<!--  </li>-->
+<!--</ul>-->
+
+
+<!--<h2>➕ Add new subscription</h2>-->
+<!--<form action="/web/subscriptions" method="post">-->
+<!--  <label for="serviceName">Service:</label><br>-->
+<!--  <input type="text" id="serviceName" name="serviceName" required><br><br>-->
+
+<!--  <label for="price">Price:</label><br>-->
+<!--  <input type="number" id="price" name="price" step="0.01" required><br><br>-->
+
+<!--  <label for="startDate">StartDate:</label><br>-->
+<!--  <input type="date" id="startDate" name="startDate" required><br><br>-->
+
+<!--  <label for="endDate">EndDate:</label><br>-->
+<!--  <input type="date" id="endDate" name="endDate" required><br><br>-->
+
+<!--  <label for="autoRenew">Auto-continue:</label>-->
+<!--  <input type="checkbox" id="autoRenew" name="autoRenew"><br><br>-->
+
+<!--  <button type="submit">Add</button>-->
+<!--</form>-->
+<!--</body>-->
+<!--</html>-->
