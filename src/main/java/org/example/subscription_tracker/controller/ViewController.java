@@ -4,11 +4,8 @@ import org.example.subscription_tracker.dto.SubscriptionDTO;
 import org.example.subscription_tracker.service.SubscriptionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
-import java.beans.PropertyEditorSupport;
-import java.time.LocalDate;
 import java.util.List;
 
 @Controller
